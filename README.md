@@ -58,7 +58,7 @@ Each news article includes:
 
 2. Preprocessing:
  
- * Tokenize, remove stopwords, and stem query terms (provided function).
+ ** Tokenize, remove stopwords, and stem query terms (provided function).
 
  * Extract relevant content from news articles (title and first five valid paragraphs).
 
