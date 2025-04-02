@@ -1,13 +1,81 @@
-It is a batch-based text search and filtering pipeline in Apache Spark. The core goal of 
-this pipeline is to take in a large set of text documents and a set of user defined queries, then for 
-each query, rank the text documents by relevance for that query, as well as filter out any overly 
-similar documents in the final ranking. The top 10 documents for each query should be returned as 
-output. Each document and query should be processed to remove stopwords (words with little 
-discriminative value, e.g. ‘the’) and apply stemming (which converts each word into its ‘stem’, a 
-shorter version that helps with term mismatch between documents and queries). Documents should 
-be scored using the DPH ranking model. As a final stage, the ranking of documents for each query 
-should be analysed to remove unneeded redundancy (near duplicate documents), if any pairs of 
-documents are found where their titles have a textual distance (using a comparison function 
-provided) less than 0.5 then you should only keep the most relevant of them (based on the DPH 
-score). Note that there should be 10 documents returned for each query, even after redundancy 
-filtering. 
+**Big Data - Apache Spark**
+
+This project focuses on designing, implementing, and performance testing a Big Data analysis task using Apache Spark. The goal is to develop a batch-based text search and filtering pipeline that ranks news articles based on user-defined queries while ensuring redundancy filtering. The project involves processing a large dataset, implementing efficient Spark transformations, and evaluating performance.
+
+**Dataset**
+
+The dataset consists of news articles from the Washington Post and a set of queries. There are two versions of the dataset:
+
+* Sample Dataset: Contains 5,000 news articles and three queries, used for local Spark deployments.
+
+* Full Dataset: Comprises approximately 670,000 news articles.
+
+**Query Structure**
+
+Each query consists of:
+
+* originalQuery: The unaltered query text.
+
+* queryTerms: The tokenized, stopword-removed, and stemmed terms.
+
+* queryTermCounts: The frequency of each query term.
+
+**News Article Structure**
+
+Each news article includes:
+
+* id: Unique identifier.
+
+* article_url: URL to the article.
+
+* title: Title of the article.
+
+* author: Author of the article.
+
+* published_date: Unix timestamp of publication.
+
+* contents: List of content elements (e.g., paragraphs, images, headers).
+
+* type: Type of article.
+
+* source: News provider.
+
+**Objectives**
+
+* Text Preprocessing: Tokenize, remove stopwords, and apply stemming to query and article content.
+
+* Relevance Scoring: Implement the DPH ranking model to score documents for each query.
+
+* Redundancy Filtering: Remove overly similar documents based on string distance calculations.
+
+* Efficiency Optimization: Design Spark transformations for scalable execution.
+
+* Evaluation: Measure performance, quality of results, and resource efficiency.
+
+**Implementation Steps**
+
+1. Load Data: Read and parse queries and news articles into Spark Datasets.
+
+2. Preprocessing:
+
+* Tokenize, remove stopwords, and stem query terms (provided function).
+
+* Extract relevant content from news articles (title and first five valid paragraphs).
+
+3. Compute DPH Scores:
+
+* Calculate term frequency for each document.
+
+* Compute document length, average document length, and corpus-wide term frequencies.
+
+* Calculate DPH score for each <document, query> pair.
+
+4. Redundancy Filtering:
+
+* Compute textual distance between document titles.
+
+* Remove documents with a distance < 0.5, keeping the most relevant.
+
+5. Generate Output:
+
+* Rank and return the top 10 documents for each query.
