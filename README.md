@@ -54,28 +54,12 @@ Each news article includes:
 
 **Implementation Steps**
 
-1. Load Data: Read and parse queries and news articles into Spark Datasets.
+* Load Data: Read and parse queries and news articles into Spark Datasets.
 
-2. Preprocessing:
+* Preprocessing: Tokenize, remove stopwords, and stem query terms (provided function).Extract relevant content from news articles (title and first five valid paragraphs).
+
+* Compute DPH Scores: Calculate term frequency for each document.Compute document length, average document length, and corpus-wide term frequencies.Calculate DPH score for each <document, query> pair.
+
+* Redundancy Filtering:Compute textual distance between document titles. Remove documents with a distance < 0.5, keeping the most relevant.
  
- ** Tokenize, remove stopwords, and stem query terms (provided function).
-
- * Extract relevant content from news articles (title and first five valid paragraphs).
-
-3. Compute DPH Scores:
-
- * Calculate term frequency for each document.
-
- * Compute document length, average document length, and corpus-wide term frequencies.
-
- * Calculate DPH score for each <document, query> pair.
-
-4. Redundancy Filtering:
-
- * Compute textual distance between document titles.
-
- * Remove documents with a distance < 0.5, keeping the most relevant.
- 
-5. Generate Output:
- 
- * Rank and return the top 10 documents for each query.
+* Generate Output: Rank and return the top 10 documents for each query.
